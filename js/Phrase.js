@@ -1,3 +1,13 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Phrase.js */
+/*********************
+    Phrase Hunter
+    By Jonathon Cisneros
+*********************/
+class Phrase {
+    constructor (phrase) {
+        this.phrase = phrase.toLowerCase();
+    }
+
+    // addPhraseToDisplay () {
+    //
+    // }
+} // End class Phrase
