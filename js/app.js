@@ -5,10 +5,28 @@
 /***
     Variables
 ***/
-const phrase = new Phrase("Life's like a box of chocolates");
+const phrase = new Phrase("Life is like a box of chocolates");
 const game = new Game();
+const startBtn = document.querySelector('#btn__reset');
+
+startBtn.addEventListener("click", () => {
+    game.startGame();
+});
+
 
 // TEST
-// game.phrases.forEach( (phrase, index) => {
-//     console.log(`Phrase ${index}: ${phrase.phrase}`);
-// });
+
+// const logPhrase = (phrase) => {
+// console.log(`Phrase - phrase: `, phrase.phrase);
+// };
+//
+// logPhrase(game.getRandomPhrase());
+// logPhrase(game.getRandomPhrase());
+// logPhrase(game.getRandomPhrase());
+// logPhrase(game.getRandomPhrase());
+// logPhrase(game.getRandomPhrase());
+
+//game.getRandomPhrase().addPhraseToDisplay();
+
+// game.startGame(); //didnt work while uncommented
+// console.log(`Active Phrase - phrase: ${game.activePhrase.phrase}`);
