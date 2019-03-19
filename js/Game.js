@@ -41,6 +41,67 @@ class Game {
 
         const phrase = this.getRandomPhrase(); // Calls for random phrase
         phrase.addPhraseToDisplay(); // Sets random phrase to display
+
         this.activePhrase = phrase; // Sets current phrase to activePhrase
+    } // End startGame()
+
+    /***
+        Handles interaction
+    ***/
+    handleInteraction () {
+
     }
-}
+
+    /***
+        Checks for winning move
+    ***/
+    checkForWin () {
+        const letters = document.querySelectorAll('#phrase li');
+        for (let i = 0; i < letters.length; i++) {
+
+            // If any letter li contains ".hide" return false
+            if (letters[i].classList.contains('hide'))
+                return false;
+
+            // If all letter li contain ".show" return true
+            else if (letters[i].classList.contains('show'))
+                return true;
+        }
+    } // End checkForWin()
+
+    /***
+        Increases the value of the missed property
+        Removes a life from the scoreboard
+        Checks if player has remaining lives and ends game if player is out
+    ***/
+    removeLife () {
+        this.missed += 1;
+        // If 5 lives are used, game over
+        if (this.missed == 5)
+            this.gameOver(false);
+
+        const heart = document.querySelectorAll('#scoreboard img');
+        let lastHeart = heart[heart.length - this.missed];
+        lastHeart.src = 'images/lostHeart.png';
+    }
+
+    /***
+        Displays game over message
+    ***/
+    gameOver (gameWon) {
+        const startPage = document.querySelector('#overlay');
+        const h1 = document.getElementById('game-over-message');
+        // Game won
+        if (gameWon) {
+            startPage.style.display = 'flex';
+            startPage.classList.add('win');
+            h1.innerHTML = 'Great Job!';
+        }
+        // Game lost
+        else if (!gameWon) {
+            startPage.style.display = 'flex';
+            startPage.classList.add('lose');
+            h1.innerHTML = 'Bummer, better luck next time!';
+        }
+    } // End gameOver()
+} // End class Game
