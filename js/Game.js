@@ -39,9 +39,9 @@ class Game {
     startGame () {
         // Resets keys
         const keys = document.querySelectorAll('.key');
-        for (let i = 0; i < keys.length; i++) {
-            keys[i].classList.remove('chosen', 'wrong', 'disabled');
-        }
+        keys.forEach(key => {
+            key.classList.remove('chosen', 'wrong', 'disabled');
+        })
 
         // Resets lives (hearts)
         this.missed = 0;
