@@ -36,6 +36,19 @@ class Game {
         Begins game with selecting a random phrase and displaying it
     ***/
     startGame () {
+        // Resets keys
+        const keys = document.querySelectorAll('.key');
+        for (let i = 0; i < keys.length; i++) {
+            keys[i].classList.remove('chosen', 'wrong', 'disabled');
+        }
+
+        // Resets lives (hearts)
+        this.missed = 0;
+        const hearts = document.querySelectorAll('#scoreboard img');
+        hearts.forEach(heart => {
+            heart.src = 'images/liveHeart.png';
+        });
+
         const startPage = document.querySelector('#overlay');
         startPage.style.display = 'none'; // Hides start screen
 
@@ -49,31 +62,39 @@ class Game {
         Handles interaction
     ***/
     handleInteraction (button) {
-        const test = this.checkLetter(button);
+        const active = this.activePhrase;
+        const letter = button.innerHTML;
+
         // works
-        if (button)
-            button.classList.add('chosen');
-        // does not work
-        if (this.activePhrase)
-            console.log(test);
-        console.log(button);
+        if (active.checkLetter(letter) == true) {
+            button.classList.add('chosen', 'disabled'); // Disables correct letter to prevent clicking again
+            active.showMatchedLetter(letter);
+        }
+
+        else if (active.checkLetter(letter) == false) {
+            button.classList.add('wrong', 'disabled');
+            this.removeLife();
+        }
+        // Calls checkForWin()
+        this.checkForWin();
     }
 
     /***
         Checks for winning move
     ***/
     checkForWin () {
-        const letters = document.querySelectorAll('#phrase li');
+        const letters = document.querySelectorAll('.letter'); // Creates array of letters only, excludes spaces as it causes bugs
+        let show = 0;
+
+        // If all letter li contain ".show" add 1 to show
         for (let i = 0; i < letters.length; i++) {
-
-            // If any letter li contains ".hide" return false
-            if (letters[i].classList.contains('hide'))
-                return false;
-
-            // If all letter li contain ".show" return true
-            else if (letters[i].classList.contains('show'))
-                return true;
+            if (letters[i].classList.contains('show'))
+                show += 1;
         }
+
+        // Check if all letters contain '.show' then calls gameOver(true)
+        if (show == (letters.length))
+            return this.gameOver(true);
     } // End checkForWin()
 
     /***
@@ -87,8 +108,8 @@ class Game {
         if (this.missed == 5)
             this.gameOver(false);
 
-        const heart = document.querySelectorAll('#scoreboard img');
-        let lastHeart = heart[heart.length - this.missed];
+        const hearts = document.querySelectorAll('#scoreboard img');
+        let lastHeart = hearts[hearts.length - this.missed];
         lastHeart.src = 'images/lostHeart.png';
     }
 
@@ -98,14 +119,18 @@ class Game {
     gameOver (gameWon) {
         const startPage = document.querySelector('#overlay');
         const h1 = document.getElementById('game-over-message');
+        // const letters = document.querySelectorAll('#phrase li');
+        // const hearts = document.querySelectorAll('#scoreboard img');
+
         // Game won
         if (gameWon) {
             startPage.style.display = 'flex';
             startPage.classList.add('win');
             h1.innerHTML = 'Great Job!';
         }
+
         // Game lost
-        else if (!gameWon) {
+        else if (gameWon == false) {
             startPage.style.display = 'flex';
             startPage.classList.add('lose');
             h1.innerHTML = 'Bummer, better luck next time!';

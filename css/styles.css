@@ -1,6 +1,11 @@
 /* Main styles */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
 
+/* Added by Jonathon Cisneros */
+.disabled {
+    pointer-events: none;
+}
+
 /* Variables */
 
 :root {
