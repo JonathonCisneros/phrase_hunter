@@ -48,8 +48,15 @@ class Game {
     /***
         Handles interaction
     ***/
-    handleInteraction () {
-
+    handleInteraction (button) {
+        const test = this.checkLetter(button);
+        // works
+        if (button)
+            button.classList.add('chosen');
+        // does not work
+        if (this.activePhrase)
+            console.log(test);
+        console.log(button);
     }
 
     /***
