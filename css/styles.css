@@ -65,6 +65,10 @@ button {
   cursor: pointer;
 }
 
+button:focus {
+    outline: none;
+}
+
 #btn__reset {
 	width: 200px;
 	margin: 0 auto;
@@ -201,7 +205,7 @@ button {
 }
 
 .lose {
-  background-color: #f5785f;
+  background-color: #f5785f ;
 }
 
 .lose a {

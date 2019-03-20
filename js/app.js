@@ -12,28 +12,21 @@ const buttons = document.querySelectorAll('#qwerty button');
 
 startBtn.addEventListener("click", () => {
     game.startGame();
+
+    // Retrieves keyboard presses and matches to onscreen keyboard
+    // then calls handleInteraction(btn)
+    document.addEventListener("keypress", (e) => {
+        let letter = String.fromCharCode(e.keyCode);
+        buttons.forEach(btn => {
+            if (letter == btn.innerHTML)
+                game.handleInteraction(btn);
+        });
+    });
 });
 
+// Uses onscreen keyboard presses for handleInteraction() parameter
 buttons.forEach(btn => {
     btn.addEventListener("click", (e) => {
         game.handleInteraction(e.target);
     });
 });
-
-
-// TEST
-
-// const logPhrase = (phrase) => {
-// console.log(`Phrase - phrase: `, phrase.phrase);
-// };
-//
-// logPhrase(game.getRandomPhrase());
-// logPhrase(game.getRandomPhrase());
-// logPhrase(game.getRandomPhrase());
-// logPhrase(game.getRandomPhrase());
-// logPhrase(game.getRandomPhrase());
-
-//game.getRandomPhrase().addPhraseToDisplay();
-
-// game.startGame(); //didnt work while uncommented
-// console.log(`Active Phrase - phrase: ${game.activePhrase.phrase}`);

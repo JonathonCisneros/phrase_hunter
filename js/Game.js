@@ -14,11 +14,12 @@ class Game {
     ***/
     createPhrases () {
         const phrases = [
-            new Phrase('Starbucks'),
-            new Phrase('Ventura County'),
-            new Phrase('California'),
-            new Phrase('I Love Jessica'),
-            new Phrase('Web Development Rocks')
+            new Phrase('My name is Jeff'),
+            new Phrase("Heres Johnny"),
+            new Phrase('California Lovin'),
+            new Phrase("Its Alive"),
+            new Phrase("Best Day Ever"),
+            new Phrase('I Love JS')
         ];
         return phrases;
     }
@@ -94,7 +95,7 @@ class Game {
 
         // Check if all letters contain '.show' then calls gameOver(true)
         if (show == (letters.length))
-            return this.gameOver(true);
+            this.gameOver(true);
     } // End checkForWin()
 
     /***
@@ -111,7 +112,7 @@ class Game {
         const hearts = document.querySelectorAll('#scoreboard img');
         let lastHeart = hearts[hearts.length - this.missed];
         lastHeart.src = 'images/lostHeart.png';
-    }
+    } // End removeLife()
 
     /***
         Displays game over message
@@ -119,19 +120,24 @@ class Game {
     gameOver (gameWon) {
         const startPage = document.querySelector('#overlay');
         const h1 = document.getElementById('game-over-message');
-        // const letters = document.querySelectorAll('#phrase li');
-        // const hearts = document.querySelectorAll('#scoreboard img');
+        let answer = this.activePhrase;
+        let h4 = document.createElement('h4');
 
         // Game won
         if (gameWon) {
-            startPage.style.display = 'flex';
-            startPage.classList.add('win');
-            h1.innerHTML = 'Great Job!';
+            // Slight timeout so user can see phrase
+            setTimeout(() => {
+                startPage.style.display = 'flex';
+                startPage.classList.remove('lose');
+                startPage.classList.add('win');
+                h1.innerHTML = 'Great Job!';
+            }, 500);
         }
 
         // Game lost
         else if (gameWon == false) {
             startPage.style.display = 'flex';
+            startPage.classList.remove('win');
             startPage.classList.add('lose');
             h1.innerHTML = 'Bummer, better luck next time!';
         }
