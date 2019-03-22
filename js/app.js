@@ -10,17 +10,22 @@ const game = new Game();
 const startBtn = document.querySelector('#btn__reset');
 const buttons = document.querySelectorAll('#qwerty button');
 
+/***
+    Event Listeners
+***/
+// Start game
 startBtn.addEventListener("click", () => {
     game.startGame();
+});
 
-    // Retrieves keyboard presses and matches to onscreen keyboard
-    // then calls handleInteraction(btn)
-    document.addEventListener("keypress", (e) => {
-        let letter = String.fromCharCode(e.keyCode);
-        buttons.forEach(btn => {
-            if (letter == btn.innerHTML)
-                game.handleInteraction(btn);
-        });
+// Retrieves keyboard presses and matches to onscreen keyboard
+// then calls handleInteraction(btn)
+document.addEventListener("keypress", (e) => {
+    let letter = String.fromCharCode(e.keyCode);
+    buttons.forEach(btn => {
+        if (letter === btn.innerHTML) {
+            game.handleInteraction(btn);
+        }
     });
 });
 

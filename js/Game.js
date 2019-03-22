@@ -41,7 +41,7 @@ class Game {
         const keys = document.querySelectorAll('.key');
         keys.forEach(key => {
             key.classList.remove('chosen', 'wrong', 'disabled');
-        })
+        });
 
         // Resets lives (hearts)
         this.missed = 0;
@@ -66,7 +66,6 @@ class Game {
         const active = this.activePhrase;
         const letter = button.innerHTML;
 
-        // works
         if (active.checkLetter(letter) == true) {
             button.classList.add('chosen', 'disabled'); // Disables correct letter to prevent clicking again
             active.showMatchedLetter(letter);
